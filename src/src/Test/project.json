@@ -1,19 +1,27 @@
 ﻿{
   "version": "1.0.0-*",
   "buildOptions": {
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "copyToOutput": [ "appsettings.json" ]
   },
 
   "dependencies": {
-    "Microsoft.NETCore.App": {
-      "type": "platform",
-      "version": "1.0.1"
-    }
+    "Aolyn.Config": "1.0.0.21",
+    "Aolyn.Data.Npgsql": "1.0.0.21",
+    "Aolyn.Data.SqlServer": "1.0.0.21",
+    "Aolyn.Data.Sqlite": "1.0.0.21"
   },
 
   "frameworks": {
     "netcoreapp1.0": {
-      "imports": "dnxcore50"
-    }
+      "imports": "dnxcore50",
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.1"
+        }
+      }
+    },
+    "net461": {}
   }
 }

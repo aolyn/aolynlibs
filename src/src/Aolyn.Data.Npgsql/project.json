@@ -1,11 +1,8 @@
 {
-  "version": "1.0.0.20",
+  "version": "1.0.0.21",
 
   "dependencies": {
-    "Aolyn.Config": "1.0.0.20",
-    "Microsoft.EntityFrameworkCore": "1.0.1",
-    "Microsoft.Extensions.Configuration": "1.0.0",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Aolyn.Config": "1.0.0.21",
     "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.2"
   },
 

@@ -14,6 +14,16 @@ cd src/src/Aolyn.Data.Npgsql
 %packcmd%
 
 cd ../../../
+cd src/src/Aolyn.Data.SqlServer
+%clearpackages%
+%packcmd%
+
+cd ../../../
+cd src/src/Aolyn.Data.Sqlite
+%clearpackages%
+%packcmd%
+
+cd ../../../
 cd src/src/Aolyn.Config
 %clearpackages%
 %packcmd%

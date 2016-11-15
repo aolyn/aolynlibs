@@ -26,7 +26,7 @@ namespace Aolyn.Config.Data.EntityFramework
 			var providersNode = entityDataConfigNode.GetSection("EntityFramework:Providers");
 			_providers = GetProviders(providersNode);
 
-			_connectionStrings = GetConnectionStrings(entityDataConfigNode);
+			_connectionStrings = ConnectionStringHelper.GetConnectionStrings(entityDataConfigNode);
 
 			var configs = new List<EntityDbConfig>();
 			foreach (var item in _connectionStrings)
@@ -48,43 +48,93 @@ namespace Aolyn.Config.Data.EntityFramework
 			_configs = configs.ToArray();
 		}
 
-		private static ConnectionStringItem[] GetConnectionStrings(IConfigurationSection entityDataConfigNode)
-		{
-			var efConfigs = entityDataConfigNode.GetSection("ConnectionStrings").GetChildren().ToArray();
-			var connectionStrings = efConfigs
-				.Select(it => new ConnectionStringItem
-				{
-					Name = it["Name"],
-					ConnectionString = it["ConnectionString"],
-					Provider = it["Provider"],
-				})
-				.ToArray();
-			return connectionStrings;
-		}
-
 		private static EntityDataProviderItem[] GetProviders(IConfigurationSection providersNode)
 		{
 			var providerNodes = providersNode.GetChildren().ToArray();
-			if (!providerNodes.Any()) return new EntityDataProviderItem[0];
+
+			var providerConfigurationItems = providerNodes
+				.Select(it => new ProviderConfigurationItem
+				{
+					Name = it["Name"],
+					Type = it["Type"],
+				})
+				.ToArray();
+
+			var defaultProviders = DefaultProviders.Value;
 
 			var providers = new List<EntityDataProviderItem>();
-			foreach (var providerNode in providerNodes)
+			providers.AddRange(defaultProviders);
+			foreach (var providerNode in providerConfigurationItems)
 			{
-				var name = providerNode["Name"];
-				var type = providerNode["Type"];
-
-				var provider = ReflectHelper.CreateInstanceByIdentifier<object>(type) as IEntityDataProvider;
+				var provider = ReflectHelper.CreateInstanceByIdentifier<object>(providerNode.Type) as IEntityDataProvider;
 				if (provider == null)
 					continue;
 
+				//remove exist same name provider
+				var sameNameProvider = providers.FirstOrDefault(it => it.Name == providerNode.Name);
+				if (sameNameProvider != null)
+					providers.Remove(sameNameProvider);
+
 				providers.Add(new EntityDataProviderItem
 				{
-					Name = name,
+					Name = providerNode.Name,
 					Provider = provider
 				});
 			}
 
 			return providers.ToArray();
+		}
+
+		private static readonly Lazy<List<EntityDataProviderItem>> DefaultProviders = new Lazy<List<EntityDataProviderItem>>(GetDefaultProviders);
+
+		private static List<EntityDataProviderItem> GetDefaultProviders()
+		{
+			var defaultProviders = new[]
+			{
+				new ProviderConfigurationItem
+				{
+					Name = "Npgsql",
+					Type = "Aolyn.Data.Npgsql.NpgsqlEntityDataProvider, Aolyn.Data.Npgsql",
+				},
+				new ProviderConfigurationItem
+				{
+					Name = "SqlServer",
+					Type = "Aolyn.Data.SqlServer.SqlServerEntityDataProvider, Aolyn.Data.SqlServer",
+				},
+				new ProviderConfigurationItem
+				{
+					Name = "Sqlite",
+					Type = "Aolyn.Data.Sqlite.SqliteEntityDataProvider, Aolyn.Data.Sqlite",
+				}
+			};
+
+			var providers = new List<EntityDataProviderItem>();
+			foreach (var item in defaultProviders)
+			{
+				try
+				{
+					var provider = ReflectHelper.CreateInstanceByIdentifier<object>(item.Type) as IEntityDataProvider;
+					if (provider == null)
+						continue;
+					providers.Add(new EntityDataProviderItem
+					{
+						Name = item.Name,
+						Provider = provider,
+					});
+				}
+				catch (Exception)
+				{
+					//ignore not reference default provider
+				}
+			}
+
+			return providers;
+		}
+
+		class ProviderConfigurationItem
+		{
+			public string Name { get; set; }
+			public string Type { get; set; }
 		}
 
 		/// <summary>
