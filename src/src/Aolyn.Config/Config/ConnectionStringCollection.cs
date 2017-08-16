@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace Aolyn.Config
 {
-	public class ConnectionStringCollection : IReadOnlyCollection<ConnectionStringItem>
+	public class ConnectionStringCollection : IReadOnlyCollection<ConnectionStringSetting>
 	{
-		private readonly List<ConnectionStringItem> _items = new List<ConnectionStringItem>();
+		private readonly List<ConnectionStringSetting> _items = new List<ConnectionStringSetting>();
 
 		public int Count => _items.Count;
 
-		public IEnumerator<ConnectionStringItem> GetEnumerator()
+		public IEnumerator<ConnectionStringSetting> GetEnumerator()
 		{
 			return _items.GetEnumerator();
 		}
@@ -20,9 +20,9 @@ namespace Aolyn.Config
 			return _items.GetEnumerator();
 		}
 
-		public ConnectionStringItem this[string key] => _items.FirstOrDefault(it => it.Name == key);
+		public ConnectionStringSetting this[string key] => _items.FirstOrDefault(it => it.Name == key);
 
-		internal void Add(ConnectionStringItem item)
+		internal void Add(ConnectionStringSetting item)
 		{
 			_items.Add(item);
 		}

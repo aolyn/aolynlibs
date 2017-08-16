@@ -6,11 +6,11 @@ namespace Aolyn.Config
 	internal class ConnectionStringHelper
 	{
 
-		public static ConnectionStringItem[] GetConnectionStrings(IConfigurationSection entityDataConfigNode)
+		public static ConnectionStringSetting[] GetConnectionStrings(IConfigurationSection entityDataConfigNode)
 		{
 			var efConfigs = entityDataConfigNode.GetSection("ConnectionStrings").GetChildren().ToArray();
 			var connectionStrings = efConfigs
-				.Select(it => new ConnectionStringItem
+				.Select(it => new ConnectionStringSetting
 				{
 					Name = it["Name"],
 					ConnectionString = it["ConnectionString"],

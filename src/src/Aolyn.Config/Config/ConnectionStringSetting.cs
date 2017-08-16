@@ -1,6 +1,6 @@
 namespace Aolyn.Config
 {
-	public class ConnectionStringItem
+	public class ConnectionStringSetting
 	{
 		public string Name { get; set; }
 

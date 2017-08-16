@@ -11,8 +11,18 @@ namespace Aolyn.Config.Data.EntityFramework
 	internal class EntityConfigManager : IEntityConfigManager
 	{
 		private EntityDbConfig[] _configs = new EntityDbConfig[0];
-		private ConnectionStringItem[] _connectionStrings;
+		private ConnectionStringSetting[] _connectionStrings;
 		private EntityDataProviderItem[] _providers;
+
+		internal static readonly EntityConfigManager Empty = new EntityConfigManager
+		{
+			_connectionStrings = new ConnectionStringSetting[0],
+			_providers = new EntityDataProviderItem[0],
+		};
+
+		private EntityConfigManager()
+		{
+		}
 
 		public EntityConfigManager(IConfiguration configuration)
 		{
@@ -36,7 +46,7 @@ namespace Aolyn.Config.Data.EntityFramework
 				if (provider == null)
 					continue;
 
-				var dbItem = new ConnectionStringItem
+				var dbItem = new ConnectionStringSetting
 				{
 					Name = item.Name,
 					Provider = providerName,
@@ -159,7 +169,7 @@ namespace Aolyn.Config.Data.EntityFramework
 			{
 				var connectionString = _connectionStrings.FirstOrDefault(it => it.Name == database);
 				if (connectionString != null)
-					throw new InvalidOperationException($"provider of connection string {database} is not a EntityFramework data provider");
+					throw new InvalidOperationException($"provider of connection {database} not found");
 
 				throw new ArgumentOutOfRangeException(nameof(database), "Database configuration error can't find Database: " + database);
 			}
