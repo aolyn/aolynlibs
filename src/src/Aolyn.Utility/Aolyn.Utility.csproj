@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+    <PropertyGroup>
+        <VersionPrefix>1.0.0.21</VersionPrefix>
+        <TargetFrameworks>netstandard1.3;net40</TargetFrameworks>
+        <AssemblyName>Aolyn.Utility</AssemblyName>
+        <RootNamespace>Aolyn</RootNamespace>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    </ItemGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    </ItemGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+        <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
+        <DefineConstants>$(DefineConstants);NETFX;NET40</DefineConstants>
+    </PropertyGroup>
+</Project>
