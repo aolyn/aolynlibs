@@ -1,32 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <VersionPrefix>1.0.0.21</VersionPrefix>
-        <TargetFrameworks>netstandard1.3;net451</TargetFrameworks>
-        <AssemblyName>Aolyn.Data.Sqlite</AssemblyName>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    </PropertyGroup>
-    
-    <ItemGroup>
-        <ProjectReference Include="..\Aolyn.Config\Aolyn.Config.csproj" />
-        <ProjectReference Include="..\Aolyn.Utility\Aolyn.Utility.csproj" />
-    </ItemGroup>
-    
-    <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-            <Version>1.0.1</Version>
-        </PackageReference>
-    </ItemGroup>
-    
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    </ItemGroup>
-    
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-        <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'net451' ">
-        <DefineConstants>$(DefineConstants);NETFX;NET40</DefineConstants>
-    </PropertyGroup>
+  <PropertyGroup>
+    <VersionPrefix>1.0.0.21</VersionPrefix>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <AssemblyName>Aolyn.Data.Sqlite</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aolyn.Config\Aolyn.Config.csproj" />
+    <ProjectReference Include="..\Aolyn.Utility\Aolyn.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>2.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <DefineConstants>$(DefineConstants);NETFX;NET40</DefineConstants>
+  </PropertyGroup>
 
 </Project>

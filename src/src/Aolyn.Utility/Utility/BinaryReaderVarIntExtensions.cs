@@ -13,8 +13,7 @@ namespace System.IO
 		/// <returns>16-bit signed value</returns>
 		public static void WriteVarint(this BinaryWriter writer, short value)
 		{
-			var encoded = VarintBitConverter.GetVarintBytes(value);
-			writer.Write(encoded);
+			VarintBitConverter.WritetVarint(writer, value);
 		}
 
 		/// <summary>
@@ -25,8 +24,7 @@ namespace System.IO
 		/// <returns>16-bit signed value</returns>
 		public static void WriteVarint(this BinaryWriter writer, ushort value)
 		{
-			var encoded = VarintBitConverter.GetVarintBytes(value);
-			writer.Write(encoded);
+			VarintBitConverter.WritetVarint(writer, (ulong)value);
 		}
 
 		/// <summary>
@@ -37,8 +35,7 @@ namespace System.IO
 		/// <returns>32-bit signed value</returns>
 		public static void WriteVarint(this BinaryWriter writer, int value)
 		{
-			var encoded = VarintBitConverter.GetVarintBytes(value);
-			writer.Write(encoded);
+			VarintBitConverter.WritetVarint(writer, value);
 		}
 
 		/// <summary>
@@ -49,8 +46,7 @@ namespace System.IO
 		/// <returns>32-bit signed value</returns>
 		public static void WriteVarint(this BinaryWriter writer, uint value)
 		{
-			var encoded = VarintBitConverter.GetVarintBytes(value);
-			writer.Write(encoded);
+			VarintBitConverter.WritetVarint(writer, (ulong)value);
 		}
 
 		/// <summary>
@@ -61,8 +57,7 @@ namespace System.IO
 		/// <returns>64-bit signed value</returns>
 		public static void WriteVarint(this BinaryWriter writer, long value)
 		{
-			var encoded = VarintBitConverter.GetVarintBytes(value);
-			writer.Write(encoded);
+			VarintBitConverter.WritetVarint(writer, value);
 		}
 
 		/// <summary>
@@ -73,8 +68,7 @@ namespace System.IO
 		/// <returns>64-bit signed value</returns>
 		public static void WriteVarint(this BinaryWriter writer, ulong value)
 		{
-			var encoded = VarintBitConverter.GetVarintBytes(value);
-			writer.Write(encoded);
+			VarintBitConverter.WritetVarint(writer, value);
 		}
 
 		/// <summary>

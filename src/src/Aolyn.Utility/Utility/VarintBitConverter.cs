@@ -97,6 +97,47 @@ namespace Aolyn.Utility
 			return result;
 		}
 
+		public static void WritetVarint(BinaryWriter writer, long value)
+		{
+			var zigzag = EncodeZigZag(value, 64);
+			WritetVarintBytes(writer, (ulong)zigzag);
+		}
+
+		public static void WritetVarint(BinaryWriter writer, ulong value)
+		{
+			WritetVarintBytes(writer, value);
+		}
+
+		/// <summary>
+		/// Returns the specified 64-bit unsigned value as varint encoded array of bytes.   
+		/// </summary>
+		/// <param name="writer"></param>
+		/// <param name="value">64-bit unsigned value</param>
+		/// <returns>Varint array of bytes.</returns>
+		private static void WritetVarintBytes(BinaryWriter writer, ulong value)
+		{
+			//var buffer = new byte[10];
+			//var pos = 0;
+			do
+			{
+				var byteVal = value & 0x7f;
+				value >>= 7;
+
+				if (value != 0)
+				{
+					byteVal |= 0x80;
+				}
+
+				//buffer[pos++] = (byte)byteVal;
+				writer.Write((byte)byteVal);
+
+			} while (value != 0);
+
+			//var result = new byte[pos];
+			//Buffer.BlockCopy(buffer, 0, result, 0, pos);
+			//return result;
+		}
+
 		/// <summary>
 		/// Returns byte value from varint encoded array of bytes.
 		/// </summary>
