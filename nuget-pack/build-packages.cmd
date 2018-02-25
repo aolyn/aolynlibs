@@ -28,4 +28,9 @@ cd src/src/Aolyn.Config
 %clearpackages%
 %packcmd%
 
+cd ../../../
+cd src/src/Aolyn.IO
+%clearpackages%
+%packcmd%
+
 pause

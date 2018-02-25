@@ -4,7 +4,7 @@
     <AssemblyName>Aolyn.Config</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>Aolyn</RootNamespace>
-    <Version>1.0.0.23</Version>
+    <Version>1.0.0.24</Version>
   </PropertyGroup>
 
   <ItemGroup>
