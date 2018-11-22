@@ -31,7 +31,7 @@ namespace Aolyn.IO
 		public override int ReadByte()
 		{
 			if (GetLeftCount() == 0) return -1;
-			var buffer = new byte[0];
+			var buffer = new byte[1];
 			Read(buffer, 0, buffer.Length);
 			return buffer[0];
 		}
